@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import type { Doc, Equip, Exercise, LoggedSet, Muscle, Session, Settings } from './types'
 import { DEFAULT_SETTINGS, SCHEMA_VERSION, newId } from './types'
+import { buildSeed } from './seed'
 import { localDate } from './format'
 
 export type Tab = 'trends' | string // session id
@@ -19,6 +20,8 @@ interface ForgeState extends Doc {
   activeTab: Tab
   editing: boolean
   rest: RestState | null
+  /** True once the one-time starter program has been offered — never re-seed. */
+  seeded: boolean
   /** Exercise whose progress detail sheet is open. */
   detailExerciseId: string | null
   /** Ember-chip weight applied for today, per exercise. */
@@ -67,6 +70,7 @@ export const useStore = create<ForgeState>()(
       activeTab: 'trends',
       editing: false,
       rest: null,
+      seeded: false,
       detailExerciseId: null,
       overrides: {},
 
@@ -235,6 +239,7 @@ export const useStore = create<ForgeState>()(
         settings: st.settings,
         activeTab: st.activeTab,
         rest: st.rest,
+        seeded: st.seeded,
         overrides: st.overrides,
       }),
       migrate: (persisted) => {
@@ -246,6 +251,22 @@ export const useStore = create<ForgeState>()(
     },
   ),
 )
+
+// One-time starter: on first boot — or an app still without a single
+// exercise or logged set — pre-enter Nico's own Upper/Lower split so
+// there's nothing to type. Ordinary data from here on: editable,
+// deletable, never re-applied.
+{
+  const st = useStore.getState()
+  const untouched =
+    !st.sessions.some((s) => s.exercises.length > 0) && Object.keys(st.logs).length === 0
+  if (!st.seeded && untouched) {
+    const sessions = buildSeed()
+    useStore.setState({ sessions, activeTab: sessions[0].id, seeded: true })
+  } else if (!st.seeded) {
+    useStore.setState({ seeded: true })
+  }
+}
 
 /** The exportable document — program, logs, settings only. */
 export function currentDoc(): Doc {

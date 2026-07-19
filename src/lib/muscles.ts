@@ -10,6 +10,7 @@ export const MUSCLE_LABEL: Record<Muscle, string> = {
   hamstrings: 'Hamstrings',
   glutes: 'Glutes',
   calves: 'Calves',
+  core: 'Core',
 }
 
 /** CSS color token per muscle — upper body cool steel, lower body warm ember. */
@@ -23,10 +24,11 @@ export const MUSCLE_COLOR: Record<Muscle, string> = {
   hamstrings: 'var(--color-m-hamstrings)',
   glutes: 'var(--color-m-glutes)',
   calves: 'var(--color-m-calves)',
+  core: 'var(--color-m-core)',
 }
 
 export const UPPER: Muscle[] = ['chest', 'back', 'shoulders', 'triceps', 'biceps']
-export const LOWER: Muscle[] = ['quads', 'hamstrings', 'glutes', 'calves']
+export const LOWER: Muscle[] = ['quads', 'hamstrings', 'glutes', 'calves', 'core']
 
 /**
  * Ordered rules: first match wins, so specific compounds
@@ -34,9 +36,10 @@ export const LOWER: Muscle[] = ['quads', 'hamstrings', 'glutes', 'calves']
  */
 const MUSCLE_RULES: Array<[RegExp, Muscle]> = [
   [/calf|calves/, 'calves'],
+  [/crunch|sit.?up|\babs?\b|plank|ab wheel|leg raise|core|pallof/, 'core'],
   [/leg curl|ham curl|seated curl|lying curl|nordic|ghr|glute.?ham/, 'hamstrings'],
   [/rdl|romanian|good ?morning|hip hinge|hamstring/, 'hamstrings'],
-  [/hip thrust|glute|kick.?back|bridge|abduct/, 'glutes'],
+  [/hip thrust|glute|kick.?back|bridge|abduct|adduct/, 'glutes'],
   [/leg ext|sissy|squat|leg press|lunge|hack|quad|step.?up/, 'quads'],
   [/leg day|deadlift/, 'back'],
   [/lat|pull.?down|pull.?up|chin|row|shrug|back ext|hyper/, 'back'],

@@ -8,6 +8,7 @@ export const MUSCLES = [
   'hamstrings',
   'glutes',
   'calves',
+  'core',
 ] as const
 
 export type Muscle = (typeof MUSCLES)[number]

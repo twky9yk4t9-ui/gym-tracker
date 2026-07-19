@@ -18,7 +18,8 @@
   --color-m-biceps: #5cc8ea;
   --color-m-triceps: #6fe0d6;
 
-  /* Lower body — one warm ember ramp, red to gold. */
+  /* Lower body + trunk — one warm ember ramp, deep red to gold. */
+  --color-m-core: #c0403e;
   --color-m-quads: #e8564f;
   --color-m-hamstrings: #ee7a48;
   --color-m-glutes: #f5a13d;

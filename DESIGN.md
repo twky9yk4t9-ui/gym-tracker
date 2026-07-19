@@ -22,8 +22,8 @@ All colors live as Tailwind v4 `@theme` tokens in `src/theme.css` — no ad-hoc 
 
 Muscle families (entity-anchored, CVD-validated; always paired with a label or dot):
 upper = cool steel ramp — back `#4a66e8`, chest `#4e86f0`, shoulders `#56a8f5`,
-biceps `#5cc8ea`, triceps `#6fe0d6`; lower = warm ember ramp — quads `#e8564f`,
-hamstrings `#ee7a48`, glutes `#f5a13d`, calves `#fad65a`. Muscle color is used for
+biceps `#5cc8ea`, triceps `#6fe0d6`; lower/trunk = warm ember ramp — core `#c0403e`,
+quads `#e8564f`, hamstrings `#ee7a48`, glutes `#f5a13d`, calves `#fad65a`. Muscle color is used for
 dots, bars, chips-tints, chart lines — never for body text.
 
 Physical plate colors (kg convention, muted) live only in `LoadoutSheet` — they depict
