@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Forge palette — every color in the app comes from here. */
+  --color-bg: #0a0b0d;
+  --color-ink: rgba(255, 255, 255, 0.92);
+  --color-ink-2: rgba(255, 255, 255, 0.56);
+  --color-ink-3: rgba(255, 255, 255, 0.32);
+  --color-glass: rgba(255, 255, 255, 0.055);
+  --color-glass-2: rgba(255, 255, 255, 0.09);
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-ember: #ff9330;
+
+  /* Upper body — one cool steel ramp, deep to ice. */
+  --color-m-back: #4a66e8;
+  --color-m-chest: #4e86f0;
+  --color-m-shoulders: #56a8f5;
+  --color-m-biceps: #5cc8ea;
+  --color-m-triceps: #6fe0d6;
+
+  /* Lower body — one warm ember ramp, red to gold. */
+  --color-m-quads: #e8564f;
+  --color-m-hamstrings: #ee7a48;
+  --color-m-glutes: #f5a13d;
+  --color-m-calves: #fad65a;
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', sans-serif;
+  --font-num:
+    ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+  --text-2xs: 11px;
+  --text-xs: 13px;
+  --text-sm: 15px;
+  --text-base: 17px;
+  --text-lg: 22px;
+  --text-xl: 28px;
+  --text-2xl: 40px;
+
+  --radius-chip: 12px;
+  --radius-card: 20px;
+  --radius-sheet: 28px;
+}
+
+html {
+  background: var(--color-bg);
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input,
+textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* Numerals are iron: rounded, tabular, steady. */
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Liquid glass panel. */
+.glass {
+  background: var(--color-glass);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border: 0.5px solid var(--color-line);
+}
+
+/* Ember glow for earned progression cues only. */
+.ember-glow {
+  box-shadow: 0 0 12px rgba(255, 147, 48, 0.35);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-m-shoulders);
+  outline-offset: 2px;
+}
+
+/* Text fields show a caret; the ring stays for buttons and chips. */
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
