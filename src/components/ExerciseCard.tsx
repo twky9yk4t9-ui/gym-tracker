@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { Check, Plus } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 import type { Exercise, LogEntry, LoggedSet } from '../lib/types'
 import { useStore } from '../lib/store'
@@ -48,24 +48,26 @@ export function ExerciseCard({ exercise: ex, onOpenKeypad }: Props) {
   }
 
   const totalRows = Math.max(ex.sets, logged.length)
-  const extraDone = logged.length >= ex.sets && logged.length > 0
+  const done = logged.length >= ex.sets && logged.length > 0
 
   const targetLabel =
     `${ex.sets} × ${ex.repRange.min}–${ex.repRange.max}` +
     (ex.rir !== undefined ? ` · RIR ${ex.rir}` : '')
 
   return (
-    <div className="glass relative overflow-hidden rounded-card p-4 pl-5">
-      <span
-        className="absolute left-0 top-[23px] h-4 w-[3px] rounded-r-full"
-        style={{ backgroundColor: color }}
-      />
-      <div className="flex items-baseline justify-between gap-3">
+    <div className="panel relative overflow-hidden rounded-card p-4">
+      <div className="flex items-center justify-between gap-3">
         <button
           onClick={() => openDetail(ex.id)}
-          className="min-w-0 truncate text-left text-base font-semibold"
+          aria-label={`${ex.name} progress`}
+          className="flex min-w-0 items-center gap-2 text-left"
         >
-          {ex.name}
+          {done ? (
+            <Check size={13} strokeWidth={3.5} className="shrink-0" style={{ color }} aria-hidden />
+          ) : (
+            <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: color }} aria-hidden />
+          )}
+          <span className="truncate text-base font-semibold">{ex.name}</span>
         </button>
         <span className="num shrink-0 text-2xs text-ink-3">{targetLabel}</span>
       </div>
@@ -80,12 +82,11 @@ export function ExerciseCard({ exercise: ex, onOpenKeypad }: Props) {
               <button
                 key={v + i}
                 onClick={() => setActiveVariant(sessionId, ex.id, i)}
-                className="rounded-full px-2.5 py-1 text-2xs font-medium transition-colors"
-                style={
-                  active
-                    ? { backgroundColor: `color-mix(in srgb, ${color} 18%, transparent)`, color }
-                    : { backgroundColor: 'var(--color-glass)', color: 'var(--color-ink-3)' }
-                }
+                aria-pressed={active}
+                className={`rounded-full px-2.5 py-1.5 text-2xs font-medium transition-colors ${
+                  active ? 'bg-glass-2 text-ink' : 'bg-glass text-ink-3'
+                }`}
+                style={active ? { boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${color} 55%, transparent)` } : undefined}
               >
                 {v}
               </button>
@@ -102,9 +103,9 @@ export function ExerciseCard({ exercise: ex, onOpenKeypad }: Props) {
           onClick={() => applyOverride(ex.id, cue.weight)}
           className="ember-glow mt-3 flex items-center gap-1.5 rounded-full bg-ember/15 px-3 py-1.5"
         >
-          <span className="text-2xs font-semibold text-ember">▲</span>
+          <span className="text-2xs font-semibold text-ember" aria-hidden>▲</span>
           <span className="num text-xs font-semibold text-ember">{fmtWeight(cue.weight)} kg</span>
-          <span className="text-2xs text-ember/70">earned</span>
+          <span className="text-2xs text-ember">earned — tap to load</span>
         </motion.button>
       )}
 
@@ -136,12 +137,12 @@ export function ExerciseCard({ exercise: ex, onOpenKeypad }: Props) {
         })}
       </div>
 
-      {extraDone && (
+      {done && (
         <button
           onClick={() => onOpenKeypad({ exercise: ex, mode: 'log', initial: ghost(logged.length) })}
-          className="mt-1 flex items-center gap-1 text-2xs text-ink-3"
+          className="mt-1 flex h-8 items-center gap-1 text-2xs text-ink-3"
         >
-          <Plus size={12} /> set
+          <Plus size={12} aria-hidden /> set
         </button>
       )}
     </div>

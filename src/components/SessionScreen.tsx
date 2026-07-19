@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Pencil } from 'lucide-react'
+import { Pencil, Plus } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import type { Session } from '../lib/types'
 import { useStore } from '../lib/store'
@@ -49,7 +49,7 @@ export function SessionScreen({ session }: { session: Session }) {
       {session.exercises.length === 0 ? (
         <button
           onClick={() => setEditing(true)}
-          className="glass w-full rounded-card px-5 py-10 text-center"
+          className="panel w-full rounded-card px-5 py-10 text-center"
         >
           <p className="text-sm text-ink-2">Nothing here yet.</p>
           <p className="mt-1 text-xs text-ink-3">Tap to add your first exercise.</p>
@@ -66,6 +66,12 @@ export function SessionScreen({ session }: { session: Session }) {
               <ExerciseCard exercise={ex} onOpenKeypad={setKeypad} />
             </motion.div>
           ))}
+          <button
+            onClick={() => setEditing(true)}
+            className="flex h-11 items-center justify-center gap-1.5 text-xs text-ink-3"
+          >
+            <Plus size={13} aria-hidden /> Add exercise
+          </button>
         </div>
       )}
 

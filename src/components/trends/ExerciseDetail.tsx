@@ -54,7 +54,7 @@ export function ExerciseDetail({ exercise: ex, onClose }: { exercise: Exercise; 
 
       {sorted.length > 0 && (
         <div className="mt-6">
-          <p className="mb-2 text-2xs uppercase tracking-wide text-ink-3">History</p>
+          <p className="mb-2 text-xs text-ink-2">History</p>
           {[...sorted].reverse().slice(0, 20).map((e) => (
             <div key={e.date} className="flex items-center justify-between border-b-[0.5px] border-line py-2.5 last:border-0">
               <div>

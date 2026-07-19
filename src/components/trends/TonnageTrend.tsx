@@ -35,7 +35,7 @@ export function TonnageTrend() {
               </defs>
               <XAxis
                 dataKey="label"
-                tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.32)' }}
+                tick={{ fontSize: 10, fill: 'rgba(255,255,255,0.46)' }}
                 axisLine={false}
                 tickLine={false}
                 minTickGap={40}
@@ -46,7 +46,7 @@ export function TonnageTrend() {
                   if (!active || !payload?.length) return null
                   const p = payload[0].payload as { label: string; tonnage: number }
                   return (
-                    <div className="glass rounded-chip px-3 py-2">
+                    <div className="panel rounded-chip px-3 py-2">
                       <p className="text-2xs text-ink-3">wk of {p.label}</p>
                       <p className="num text-xs font-semibold text-ink">{fmtTonnage(p.tonnage)}</p>
                     </div>

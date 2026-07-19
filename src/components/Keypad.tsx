@@ -102,7 +102,7 @@ export function Keypad({ target, onCommit, onRemove, onClose }: Props) {
         initial={reduced ? { opacity: 0 } : { y: '100%' }}
         animate={reduced ? { opacity: 1 } : { y: 0 }}
         exit={reduced ? { opacity: 0 } : { y: '100%' }}
-        transition={{ type: 'spring', duration: 0.45, bounce: 0.15 }}
+        transition={{ type: 'spring', duration: 0.38, bounce: 0.15 }}
         className="relative rounded-t-sheet border-t-[0.5px] border-line bg-[#15171b]/95 px-5 pt-5 backdrop-blur-2xl"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 16px)' }}
       >
@@ -163,7 +163,7 @@ export function Keypad({ target, onCommit, onRemove, onClose }: Props) {
               {d}
             </button>
           ))}
-          <button onClick={() => step(1)} className={`${key} glass`} aria-label="Increase">
+          <button onClick={() => step(1)} className={`${key} bg-glass-2`} aria-label="Increase">
             <Plus size={20} />
             {field === 'weight' && <span className="num ml-0.5 text-xs">{fmtWeight(jump)}</span>}
           </button>
@@ -172,7 +172,7 @@ export function Keypad({ target, onCommit, onRemove, onClose }: Props) {
               {d}
             </button>
           ))}
-          <button onClick={() => step(-1)} className={`${key} glass`} aria-label="Decrease">
+          <button onClick={() => step(-1)} className={`${key} bg-glass-2`} aria-label="Decrease">
             <Minus size={20} />
             {field === 'weight' && <span className="num ml-0.5 text-xs">{fmtWeight(jump)}</span>}
           </button>

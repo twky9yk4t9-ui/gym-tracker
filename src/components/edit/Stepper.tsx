@@ -13,7 +13,7 @@ export function Stepper({ label, display, onDec, onInc }: Props) {
     'flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-glass text-ink-2 active:bg-glass-2'
   return (
     <div className="flex flex-col items-center gap-1">
-      <span className="text-2xs uppercase tracking-wide text-ink-3">{label}</span>
+      <span className="text-2xs text-ink-2">{label}</span>
       <div className="flex items-center gap-0.5">
         <button onClick={onDec} className={btn} aria-label={`Decrease ${label}`}>
           <Minus size={13} />

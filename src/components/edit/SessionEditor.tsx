@@ -48,7 +48,7 @@ export function SessionEditor({ session }: { session: Session }) {
       ) : (
         <button
           onClick={() => setDrafting(true)}
-          className="glass mt-3 flex w-full items-center justify-center gap-2 rounded-card py-4 text-sm font-medium text-ink-2"
+          className="panel mt-3 flex w-full items-center justify-center gap-2 rounded-card py-4 text-sm font-medium text-ink-2"
         >
           <Plus size={16} /> Add exercise
         </button>
@@ -80,7 +80,7 @@ function ExerciseEditor({ sessionId, exercise: ex }: { sessionId: string; exerci
       value={ex.id}
       dragListener={false}
       dragControls={controls}
-      className="glass rounded-card p-4"
+      className="panel rounded-card p-4"
     >
       <div className="mb-3 flex items-center gap-2">
         <button
@@ -140,7 +140,7 @@ function DraftExercise({ sessionId, onDone }: { sessionId: string; onDone: () =>
   const canAdd = draft.name.trim().length > 0 && muscle !== null
 
   return (
-    <div className="glass mt-3 rounded-card p-4" style={{ borderColor: 'rgba(255,255,255,0.16)' }}>
+    <div className="panel mt-3 rounded-card p-4" style={{ borderColor: 'rgba(255,255,255,0.16)' }}>
       <input
         autoFocus
         value={draft.name}

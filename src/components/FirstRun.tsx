@@ -63,13 +63,13 @@ export function FirstRun() {
           onChange={(e) => setName(e.target.value)}
           placeholder="Push"
           enterKeyHint="go"
-          className="glass min-w-0 flex-1 rounded-chip px-5 py-4 text-base text-ink outline-none placeholder:text-ink-3"
+          className="panel min-w-0 flex-1 rounded-chip px-5 py-4 text-base text-ink outline-none placeholder:text-ink-3"
         />
         <button
           type="submit"
           disabled={!name.trim()}
           aria-label="Create session"
-          className="glass flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-chip text-ink transition-opacity disabled:opacity-30"
+          className="panel flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-chip text-ink transition-opacity disabled:opacity-30"
         >
           <ArrowRight size={22} />
         </button>

@@ -4,8 +4,8 @@
   /* Forge palette — every color in the app comes from here. */
   --color-bg: #0a0b0d;
   --color-ink: rgba(255, 255, 255, 0.92);
-  --color-ink-2: rgba(255, 255, 255, 0.56);
-  --color-ink-3: rgba(255, 255, 255, 0.32);
+  --color-ink-2: rgba(255, 255, 255, 0.62);
+  --color-ink-3: rgba(255, 255, 255, 0.46);
   --color-glass: rgba(255, 255, 255, 0.055);
   --color-glass-2: rgba(255, 255, 255, 0.09);
   --color-line: rgba(255, 255, 255, 0.08);
@@ -74,11 +74,19 @@ textarea {
   letter-spacing: -0.01em;
 }
 
-/* Liquid glass panel. */
+/* Liquid glass — ONLY for floating surfaces content passes under
+   (tab bar, rest pill, sheets). Blur is expensive and pointless on
+   static cards over an opaque background. */
 .glass {
   background: var(--color-glass);
   -webkit-backdrop-filter: blur(24px) saturate(1.4);
   backdrop-filter: blur(24px) saturate(1.4);
+  border: 0.5px solid var(--color-line);
+}
+
+/* Static elevated card: reads identically to glass on the graphite bg. */
+.panel {
+  background: #14161a;
   border: 0.5px solid var(--color-line);
 }
 

@@ -90,7 +90,7 @@ export function LoadoutSheet({ weight, exercise, onClose }: Props) {
 
       {ramp.length > 0 && (
         <div className="mt-6 border-t-[0.5px] border-line pt-4">
-          <p className="mb-2 text-2xs uppercase tracking-wide text-ink-3">Warm-up</p>
+          <p className="mb-2 text-xs text-ink-2">Warm-up</p>
           {ramp.map((s, i) => {
             const stepLo = loadout(s.weight, settings)
             return (

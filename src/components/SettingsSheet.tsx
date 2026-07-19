@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore, currentDoc } from '../lib/store'
 import { downloadBackup, parseBackup } from '../lib/backup'
-import { fmtClock, fmtWeight } from '../lib/format'
+import { fmtWeight } from '../lib/format'
 import { Sheet } from './Sheet'
 import { Stepper } from './edit/Stepper'
 
@@ -86,16 +86,10 @@ export function SettingsSheet({ onClose }: { onClose: () => void }) {
           onInc={() => updateSettings({ barWeight: Math.min(35, settings.barWeight + 2.5) })}
         />
         <Stepper label="Jump kg" display={fmtWeight(settings.defaultJump)} onDec={() => stepJump(-1)} onInc={() => stepJump(1)} />
-        <Stepper
-          label="Rest"
-          display={fmtClock(settings.restSeconds)}
-          onDec={() => updateSettings({ restSeconds: Math.max(30, settings.restSeconds - 15) })}
-          onInc={() => updateSettings({ restSeconds: Math.min(300, settings.restSeconds + 15) })}
-        />
       </div>
 
       <div className="mt-5">
-        <p className="mb-2 text-2xs uppercase tracking-wide text-ink-3">Plates per side</p>
+        <p className="mb-2 text-xs text-ink-2">Plates per side</p>
         <div className="flex flex-wrap gap-1.5">
           {ALL_PLATES.map((p) => {
             const active = settings.plates.includes(p)

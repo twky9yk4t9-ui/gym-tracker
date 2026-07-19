@@ -35,7 +35,7 @@ export function TrendsScreen() {
       </header>
 
       {!anyLogs ? (
-        <div className="glass rounded-card px-6 py-10 text-center">
+        <div className="panel rounded-card px-6 py-10 text-center">
           <p className="text-sm text-ink-2">Nothing to show yet.</p>
           <p className="mt-1 text-xs text-ink-3">
             Log your first session and this page starts tracking you.
@@ -43,18 +43,18 @@ export function TrendsScreen() {
         </div>
       ) : (
         <div className="flex flex-col gap-3">
-          <section className="glass rounded-card p-4">
+          <section className="panel rounded-card p-4" aria-label="Weekly sets per muscle">
+            <VolumeBars />
+          </section>
+
+          <section className="panel rounded-card p-4" aria-label="Weekly tonnage">
             <Suspense fallback={<div className="h-28" />}>
               <TonnageTrend />
             </Suspense>
           </section>
 
-          <section className="glass rounded-card p-4">
-            <VolumeBars />
-          </section>
-
-          <section className="glass rounded-card p-4">
-            <p className="mb-1 text-2xs uppercase tracking-wide text-ink-3">Exercises</p>
+          <section className="panel rounded-card p-4">
+            <p className="mb-1 text-xs text-ink-2">Exercises</p>
             {exercises.map((ex) => {
               const trend = trendFor(logs[ex.id])
               const hasData = (logs[ex.id] ?? []).length > 0

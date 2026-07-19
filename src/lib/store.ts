@@ -6,10 +6,14 @@ import { localDate } from './format'
 
 export type Tab = 'trends' | string // session id
 
-interface RestState {
-  endsAt: number
-  exerciseId: string
-}
+/**
+ * The rest timer never starts itself. Logging a set (or tapping the tab-bar
+ * clock) only ARMS it — a quiet offer showing the last-used duration. One tap
+ * starts it; ±30 adjusts; the started duration becomes the new default.
+ */
+export type RestState =
+  | { mode: 'armed'; seconds: number }
+  | { mode: 'running'; endsAt: number; total: number }
 
 interface ForgeState extends Doc {
   activeTab: Tab
@@ -36,6 +40,9 @@ interface ForgeState extends Doc {
   editLoggedSet: (exerciseId: string, date: string, index: number, set: LoggedSet) => void
   removeLoggedSet: (exerciseId: string, date: string, index: number) => void
   applyOverride: (exerciseId: string, weight: number) => void
+  armRest: () => void
+  adjustRest: (deltaSeconds: number) => void
+  startRest: () => void
   dismissRest: () => void
 
   // app
@@ -135,9 +142,11 @@ export const useStore = create<ForgeState>()(
                 e.date === date ? { ...e, variant, sets: [...e.sets, loggedSet] } : e,
               )
             : [...entries, { date, variant, sets: [loggedSet] }]
+          // Offer the timer, never start it. A timer already running stays.
+          const keepRunning = st.rest?.mode === 'running' && st.rest.endsAt > Date.now()
           return {
             logs: { ...st.logs, [exercise.id]: nextEntries },
-            rest: { endsAt: Date.now() + st.settings.restSeconds * 1000, exerciseId: exercise.id },
+            rest: keepRunning ? st.rest : { mode: 'armed', seconds: st.settings.restSeconds },
           }
         }),
       editLoggedSet: (exerciseId, date, index, loggedSet) =>
@@ -166,6 +175,37 @@ export const useStore = create<ForgeState>()(
         set((st) => ({
           overrides: { ...st.overrides, [exerciseId]: { date: localDate(), weight } },
         })),
+      armRest: () =>
+        set((st) => ({ rest: { mode: 'armed', seconds: st.settings.restSeconds } })),
+      adjustRest: (deltaSeconds) =>
+        set((st) => {
+          if (!st.rest) return {}
+          if (st.rest.mode === 'armed') {
+            return {
+              rest: {
+                mode: 'armed',
+                seconds: Math.min(600, Math.max(30, st.rest.seconds + deltaSeconds)),
+              },
+            }
+          }
+          return {
+            rest: {
+              mode: 'running',
+              endsAt: st.rest.endsAt + deltaSeconds * 1000,
+              total: st.rest.total + deltaSeconds,
+            },
+          }
+        }),
+      startRest: () =>
+        set((st) => {
+          if (st.rest?.mode !== 'armed') return {}
+          const s = st.rest.seconds
+          return {
+            rest: { mode: 'running', endsAt: Date.now() + s * 1000, total: s },
+            // The duration you actually use becomes the new default.
+            settings: { ...st.settings, restSeconds: s },
+          }
+        }),
       dismissRest: () => set({ rest: null }),
 
       setActiveTab: (tab) => set({ activeTab: tab, editing: false }),
@@ -197,7 +237,12 @@ export const useStore = create<ForgeState>()(
         rest: st.rest,
         overrides: st.overrides,
       }),
-      migrate: (persisted) => persisted as ForgeState,
+      migrate: (persisted) => {
+        const st = persisted as ForgeState & { rest?: unknown }
+        // v1 shipped an auto-start timer with a different rest shape — drop it.
+        if (st.rest && typeof st.rest === 'object' && !('mode' in st.rest)) st.rest = null
+        return st as ForgeState
+      },
     },
   ),
 )

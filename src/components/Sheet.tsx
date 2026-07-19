@@ -24,7 +24,7 @@ export function Sheet({ onClose, children, size = 'auto' }: Props) {
         initial={reduced ? { opacity: 0 } : { y: '100%' }}
         animate={reduced ? { opacity: 1 } : { y: 0 }}
         exit={reduced ? { opacity: 0 } : { y: '100%' }}
-        transition={{ type: 'spring', duration: 0.45, bounce: 0.15 }}
+        transition={{ type: 'spring', duration: 0.38, bounce: 0.15 }}
         className={`relative overflow-y-auto rounded-t-sheet border-t-[0.5px] border-line bg-[#15171b]/95 px-5 pt-5 backdrop-blur-2xl ${
           size === 'tall' ? 'h-[88vh]' : 'max-h-[88vh]'
         }`}

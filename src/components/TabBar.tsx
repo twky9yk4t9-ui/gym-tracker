@@ -1,4 +1,4 @@
-import { Plus, TrendingUp } from 'lucide-react'
+import { Plus, Timer, TrendingUp } from 'lucide-react'
 import { Reorder } from 'motion/react'
 import { useStore } from '../lib/store'
 
@@ -10,6 +10,9 @@ export function TabBar() {
   const setEditing = useStore((s) => s.setEditing)
   const addSession = useStore((s) => s.addSession)
   const setSessionOrder = useStore((s) => s.setSessionOrder)
+  const rest = useStore((s) => s.rest)
+  const armRest = useStore((s) => s.armRest)
+  const dismissRest = useStore((s) => s.dismissRest)
 
   const chip = (active: boolean) =>
     `flex h-11 shrink-0 items-center justify-center rounded-full px-4 text-sm font-medium transition-colors ${
@@ -57,6 +60,13 @@ export function TabBar() {
           </button>
         )}
         <div className="h-6 w-px shrink-0 bg-line" />
+        <button
+          onClick={() => (rest ? dismissRest() : armRest())}
+          aria-label={rest ? 'Hide rest timer' : 'Rest timer'}
+          className={chip(false)}
+        >
+          <Timer size={18} className={rest ? 'text-ink' : undefined} />
+        </button>
         <button
           onClick={() => setActiveTab('trends')}
           aria-label="Trends"

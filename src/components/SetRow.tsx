@@ -1,5 +1,4 @@
 import { Check } from 'lucide-react'
-import { motion, useReducedMotion } from 'motion/react'
 import type { LoggedSet } from '../lib/types'
 import { fmtWeight } from '../lib/format'
 
@@ -16,7 +15,6 @@ interface Props {
 export function SetRow({ index, state, set, color, onCheck, onTap }: Props) {
   const logged = state === 'logged'
   const dim = logged ? 'text-ink' : 'text-ink-3'
-  const reduced = useReducedMotion()
 
   return (
     <div className="flex h-13 items-center gap-3">
@@ -34,15 +32,13 @@ export function SetRow({ index, state, set, color, onCheck, onTap }: Props) {
         )}
       </button>
       {state !== 'future' && (
-        <motion.button
+        <button
           onClick={logged ? onTap : (onCheck ?? onTap)}
           aria-label={logged ? `Edit set ${index + 1}` : `Log set ${index + 1}`}
-          whileTap={reduced ? undefined : { scale: 0.8 }}
-          transition={{ type: 'spring', duration: 0.3, bounce: 0.5 }}
-          className="flex h-11 w-11 items-center justify-center"
+          className="group flex h-11 w-11 items-center justify-center"
         >
           <span
-            className="flex h-7 w-7 items-center justify-center rounded-full border transition-colors"
+            className="flex h-7 w-7 items-center justify-center rounded-full border transition-transform duration-150 ease-out motion-safe:group-active:scale-75"
             style={
               logged
                 ? { backgroundColor: `color-mix(in srgb, ${color} 22%, transparent)`, borderColor: 'transparent' }
@@ -51,7 +47,7 @@ export function SetRow({ index, state, set, color, onCheck, onTap }: Props) {
           >
             {logged && <Check size={15} style={{ color }} strokeWidth={3} />}
           </span>
-        </motion.button>
+        </button>
       )}
     </div>
   )

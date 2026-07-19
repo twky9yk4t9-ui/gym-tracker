@@ -33,7 +33,7 @@ function points(entries: LogEntry[], repsMode: boolean): Point[] {
     })
 }
 
-const tick = { fontSize: 10, fill: 'rgba(255,255,255,0.32)' }
+const tick = { fontSize: 10, fill: 'rgba(255,255,255,0.46)' }
 
 export function E1RMChart({ entries, color }: { entries: LogEntry[]; color: string }) {
   // Bodyweight work (weight 0) has no e1RM — chart best reps instead.
@@ -69,7 +69,7 @@ export function E1RMChart({ entries, color }: { entries: LogEntry[]; color: stri
               if (!active || !payload?.length) return null
               const p = payload[0].payload as Point
               return (
-                <div className="glass rounded-chip px-3 py-2">
+                <div className="panel rounded-chip px-3 py-2">
                   <p className="text-2xs text-ink-3">{p.label}</p>
                   <p className="num text-xs font-semibold text-ink">
                     {repsMode ? `${p.value} reps` : `e1RM ${fmtWeight(p.value)} kg`}
