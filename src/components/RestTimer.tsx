@@ -58,8 +58,8 @@ export function RestTimer() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 z-30 flex justify-center"
-      style={{ bottom: 'calc(env(safe-area-inset-bottom) + 84px)' }}
+      className="pointer-events-none absolute inset-x-0 z-30 flex justify-center"
+      style={{ bottom: 'calc(env(safe-area-inset-bottom) + 92px)' }}
     >
       <div
         aria-hidden={!rest}

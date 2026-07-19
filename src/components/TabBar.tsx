@@ -21,7 +21,7 @@ export function TabBar() {
 
   return (
     <nav
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4"
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-40 flex justify-center px-4"
       style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 12px)' }}
     >
       <div className="glass pointer-events-auto flex max-w-full items-center gap-1 rounded-full p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">

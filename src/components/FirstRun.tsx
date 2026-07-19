@@ -31,8 +31,8 @@ export function FirstRun() {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center bg-bg px-8"
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      className="fixed inset-x-0 top-0 flex flex-col items-center justify-center bg-bg px-8"
+      style={{ height: '100dvh', paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <motion.div
         initial={reduced ? false : { opacity: 0, scale: 0.9 }}
